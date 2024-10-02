@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func main() {
+func viperExample() {
 	v := viper.New()
 	v.SetConfigName("config.json")
 	if err := v.ReadInConfig(); err != nil {

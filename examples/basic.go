@@ -9,7 +9,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-func main() {
+func basicExample() {
 	if err := goredis.NewPool(
 		goredis.WithDefaultPool(),
 		goredis.WithMaxIdle(5),
