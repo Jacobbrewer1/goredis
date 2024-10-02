@@ -27,25 +27,35 @@ func WithIdleTimeout(idleTimeout int) ConnectionOption {
 	}
 }
 
-func WithDial(dial func() (redis.Conn, error)) ConnectionOption {
+func WithAddress(address string) ConnectionOption {
 	return func(r *pool) {
-		r.Dial = dial
+		r.addr = address
+	}
+}
+
+func WithNetwork(network string) ConnectionOption {
+	return func(r *pool) {
+		r.network = network
+	}
+}
+
+func WithDialOpts(dialOpts ...redis.DialOption) ConnectionOption {
+	return func(r *pool) {
+		r.dialOpts = dialOpts
 	}
 }
 
 func FromViper(v *viper.Viper) []ConnectionOption {
 	return []ConnectionOption{
-		WithMaxIdle(v.GetInt("redis.max_idle")),
-		WithMaxActive(v.GetInt("redis.max_active")),
-		WithIdleTimeout(v.GetInt("redis.idle_timeout_secs")),
-		WithDial(func() (redis.Conn, error) {
-			return redis.Dial(
-				NetworkTCP,
-				v.GetString("redis.address"),
-				redis.DialDatabase(v.GetInt("redis.db")),
-				redis.DialUsername(v.GetString("redis.username")),
-				redis.DialPassword(v.GetString("redis.password")),
-			)
-		}),
+		WithMaxIdle(v.GetInt(viperMaxIdle)),
+		WithMaxActive(v.GetInt(viperMaxActive)),
+		WithIdleTimeout(v.GetInt(viperIdleTimeout)),
+		WithAddress(v.GetString(viperAddress)),
+		WithNetwork(NetworkTCP),
+		WithDialOpts(
+			redis.DialDatabase(v.GetInt(viperDatabase)),
+			redis.DialUsername(v.GetString(viperUsername)),
+			redis.DialPassword(v.GetString(viperPassword)),
+		),
 	}
 }
