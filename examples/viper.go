@@ -3,7 +3,7 @@
 package examples
 
 import (
-	goredis "github.com/Jacobbrewer1/goredis/redis"
+	"github.com/Jacobbrewer1/goredis"
 	"github.com/spf13/viper"
 )
 
