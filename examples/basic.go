@@ -5,7 +5,7 @@ package examples
 import (
 	"time"
 
-	goredis "github.com/Jacobbrewer1/goredis/redis"
+	"github.com/Jacobbrewer1/goredis"
 	"github.com/gomodule/redigo/redis"
 )
 

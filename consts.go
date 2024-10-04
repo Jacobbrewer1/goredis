@@ -1,4 +1,4 @@
-package redis
+package goredis
 
 const (
 	NetworkTCP = "tcp"
