@@ -53,7 +53,9 @@ func (_m *MockPool) Do(command string, args ...any) (any, error) {
 	if rf, ok := ret.Get(0).(func(string, ...any) any); ok {
 		r0 = rf(command, args...)
 	} else {
-		r0 = ret.Get(0).(any)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(any)
+		}
 	}
 
 	if rf, ok := ret.Get(1).(func(string, ...any) error); ok {
@@ -84,7 +86,9 @@ func (_m *MockPool) DoCtx(ctx context.Context, command string, args ...any) (any
 	if rf, ok := ret.Get(0).(func(context.Context, string, ...any) any); ok {
 		r0 = rf(ctx, command, args...)
 	} else {
-		r0 = ret.Get(0).(any)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(any)
+		}
 	}
 
 	if rf, ok := ret.Get(1).(func(context.Context, string, ...any) error); ok {
