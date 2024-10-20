@@ -5,8 +5,8 @@ package examples
 import (
 	"time"
 
-	"github.com/Jacobbrewer1/goredis"
 	"github.com/gomodule/redigo/redis"
+	"github.com/jacobbrewer1/goredis"
 )
 
 func basicExample() {

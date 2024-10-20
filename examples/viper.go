@@ -3,7 +3,7 @@
 package examples
 
 import (
-	"github.com/Jacobbrewer1/goredis"
+	"github.com/jacobbrewer1/goredis"
 	"github.com/spf13/viper"
 )
 

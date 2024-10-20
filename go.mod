@@ -1,4 +1,4 @@
-module github.com/Jacobbrewer1/goredis
+module github.com/jacobbrewer1/goredis
 
 go 1.23
 
