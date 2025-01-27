@@ -12,9 +12,6 @@ import (
 )
 
 var (
-	// conn is the global redis connection pool.
-	conn Pool
-
 	// ErrRedisNotInitialised is returned when the redis connection pool is not initialised.
 	ErrRedisNotInitialised = errors.New("redis connection pool not initialised")
 )
@@ -118,25 +115,4 @@ func (p *pool) DoCtx(ctx context.Context, command string, args ...any) (reply an
 // Conn returns a redis connection from the pool.
 func (p *pool) Conn() redis.Conn {
 	return p.Pool.Get()
-}
-
-func Do(command string, args ...any) (reply any, err error) {
-	if conn == nil {
-		return nil, ErrRedisNotInitialised
-	}
-	return DoCtx(context.Background(), command, args...)
-}
-
-func DoCtx(ctx context.Context, command string, args ...any) (reply any, err error) {
-	if conn == nil {
-		return nil, ErrRedisNotInitialised
-	}
-	return conn.DoCtx(ctx, command, args...)
-}
-
-func Conn() redis.Conn {
-	if conn == nil {
-		return nil
-	}
-	return conn.Conn()
 }
