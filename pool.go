@@ -11,11 +11,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 )
 
-var (
-	// ErrRedisNotInitialised is returned when the redis connection pool is not initialised.
-	ErrRedisNotInitialised = errors.New("redis connection pool not initialised")
-)
-
 // Latency is the duration of Redis queries.
 var Latency = promauto.NewHistogramVec(
 	prometheus.HistogramOpts{
@@ -51,18 +46,14 @@ type pool struct {
 }
 
 // NewPool returns a new Pool.
-func NewPool(poolOpt PoolOption, connOpts ...ConnectionOption) error {
-	if poolOpt == nil {
-		return errors.New("no pool option provided")
-	}
+func NewPool(connOpts ...PoolOption) error {
 
 	poolConn := &pool{
 		Pool: new(redis.Pool),
 	}
-	if len(connOpts) != 0 {
-		for _, opt := range connOpts {
-			opt(poolConn)
-		}
+
+	for _, opt := range connOpts {
+		opt(poolConn)
 	}
 
 	switch {
@@ -77,8 +68,6 @@ func NewPool(poolOpt PoolOption, connOpts ...ConnectionOption) error {
 			return redis.Dial(poolConn.network, poolConn.addr, poolConn.dialOpts...)
 		}
 	}
-
-	poolOpt(poolConn)
 
 	return nil
 }
