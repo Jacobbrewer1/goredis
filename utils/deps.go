@@ -1,4 +1,4 @@
-//go:build deps
+//go:build tools
 
 package utils
 

@@ -15,7 +15,6 @@ func viperExample() {
 	}
 
 	if err := goredis.NewPool(
-		goredis.WithDefaultPool(),
 		goredis.FromViper(v)...,
 	); err != nil {
 		panic(err)
