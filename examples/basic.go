@@ -10,7 +10,7 @@ import (
 )
 
 func basicExample() {
-	if err := goredis.NewPool(
+	if _, err := goredis.NewPool(
 		goredis.WithMaxIdle(5),
 		goredis.WithMaxActive(10),
 		goredis.WithIdleTimeout(int(5*time.Minute)),

@@ -46,8 +46,7 @@ type pool struct {
 }
 
 // NewPool returns a new Pool.
-func NewPool(connOpts ...PoolOption) error {
-
+func NewPool(connOpts ...PoolOption) (Pool, error) {
 	poolConn := &pool{
 		Pool: new(redis.Pool),
 	}
@@ -58,9 +57,9 @@ func NewPool(connOpts ...PoolOption) error {
 
 	switch {
 	case poolConn.addr == "":
-		return errors.New("no address provided")
+		return nil, errors.New("no address provided")
 	case poolConn.network == "":
-		return errors.New("no network provided")
+		return nil, errors.New("no network provided")
 	}
 
 	if poolConn.Dial == nil {
@@ -69,7 +68,7 @@ func NewPool(connOpts ...PoolOption) error {
 		}
 	}
 
-	return nil
+	return poolConn, nil
 }
 
 // Do will send a command to the server and returns the received reply on a connection from the pool.

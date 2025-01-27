@@ -14,7 +14,7 @@ func viperExample() {
 		panic(err)
 	}
 
-	if err := goredis.NewPool(
+	if _, err := goredis.NewPool(
 		goredis.FromViper(v)...,
 	); err != nil {
 		panic(err)
