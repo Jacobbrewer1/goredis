@@ -52,6 +52,7 @@ type pool struct {
 func NewPool(connOpts ...PoolOption) (Pool, error) {
 	poolConn := &pool{
 		Pool: new(redis.Pool),
+		l:    slog.Default(),
 	}
 
 	for _, opt := range connOpts {
