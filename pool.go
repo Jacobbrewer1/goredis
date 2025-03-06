@@ -35,6 +35,9 @@ type Pool interface {
 type pool struct {
 	*redis.Pool
 
+	// l is the logger for the pool.
+	l *slog.Logger
+
 	// addr is the address of the redis server (host:port).
 	addr string
 
@@ -93,7 +96,7 @@ func (p *pool) DoCtx(ctx context.Context, command string, args ...any) (reply an
 
 	defer func(c redis.Conn) {
 		if err := c.Close(); err != nil {
-			slog.Error("error closing connection", slog.String(loggingKeyError, err.Error()))
+			p.l.Error("error closing connection", slog.String(loggingKeyError, err.Error()))
 		}
 	}(c)
 
