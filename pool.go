@@ -106,5 +106,5 @@ func (p *pool) DoCtx(ctx context.Context, command string, args ...any) (reply an
 
 // Conn returns a redis connection from the pool.
 func (p *pool) Conn() redis.Conn {
-	return p.Pool.Get()
+	return p.Get()
 }
