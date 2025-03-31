@@ -2,12 +2,10 @@ module github.com/jacobbrewer1/goredis
 
 go 1.24
 
-toolchain go1.24.1
-
 require (
 	github.com/gomodule/redigo v1.9.2
 	github.com/prometheus/client_golang v1.21.1
-	github.com/spf13/viper v1.20.0
+	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
 	github.com/vektra/mockery/v2 v2.53.3
 )
